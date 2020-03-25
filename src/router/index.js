@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from 'views/Home.vue'
+import Home from 'views/Home'
 import store from '@/store'
 
 Vue.use(Router)
 
-let routes = [
-  {
+let routes = [{
     path: '/',
     name: 'home',
     component: Home,
@@ -16,9 +15,28 @@ let routes = [
     }
   },
   {
+    path: '/message',
+    name: 'message',
+    component: () => import('views/Message/index'),
+    meta: {
+      title: '个人中心',
+      keepAlive: true
+    }
+  },
+  {
+    path: '/searchPage',
+    name: 'searchPage',
+    component: () => import(/* webpackChunkName: "login" */ 'views/SearchPage/index'),
+    meta: {
+      title: '搜索'
+      // auth: true,
+      // keepAlive: true
+    }
+  },
+  {
     path: '/404',
     name: '404',
-    component: () => import(/* webpackChunkName: "404" */ 'views/404.vue'),
+    component: () => import( /* webpackChunkName: "404" */ 'views/404.vue'),
     meta: {
       title: '404',
       keepAlive: true
@@ -47,7 +65,9 @@ routes = routes.concat({
 const createRouter = () => new Router({
   mode: 'history', // require service support
   base: process.env.BASE_URL,
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({
+    y: 0
+  }),
   routes
 })
 
@@ -87,7 +107,7 @@ myRouter.beforeEach((to, from, next) => {
   next()
 })
 
-export function resetRouter () {
+export function resetRouter() {
   myRouter.replace('/login')
 }
 

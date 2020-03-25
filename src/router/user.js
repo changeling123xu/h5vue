@@ -1,8 +1,7 @@
-export default [
-  {
+export default [{
     path: '/login',
     name: 'login',
-    component: () => import(/* webpackChunkName: "login" */ 'views/user/Login.vue'),
+    component: () => import( /* webpackChunkName: "login" */ 'views/user/Login.vue'),
     meta: {
       title: '登录'
       // auth: true,
@@ -12,7 +11,7 @@ export default [
   {
     path: '/register',
     name: 'register',
-    component: () => import(/* webpackChunkName: "register" */ 'views/user/Register.vue'),
+    component: () => import( /* webpackChunkName: "register" */ 'views/user/Register.vue'),
     meta: {
       title: '注册'
       // auth: true,

@@ -10,7 +10,9 @@ import '@/icons' // icon
 import '@/style/common.scss'
 import { Lazyload } from 'vant'
 import defaultSettings from '@/settings'
-
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+// import Argon from '@/plugins/argon-kit'
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -29,7 +31,7 @@ FastClick.attach(document.body)
 
 // options 为可选参数，无则不传
 Vue.use(Lazyload)
-
+Vue.use(ElementUI);
 Vue.component('svg-icon', SvgIcon)
 
 if (process.env.NODE_ENV === 'development' && defaultSettings.vconsole) {

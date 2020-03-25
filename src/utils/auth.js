@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'h5-vue-cli_token'
+const TokenKey = 'web_token'
 
 export function getToken () {
   return Cookies.get(TokenKey)

@@ -29,7 +29,7 @@
 </template>
 <script>
 import { Tabbar, TabbarItem } from 'vant'
-import { fetchList } from 'api/article'
+import { fetchList } from 'api/house'
 import dayjs from 'dayjs'
 import FooterTabbar from 'components/FooterTabbar'
 import VoPages from 'vo-pages'
@@ -64,11 +64,12 @@ export default {
       this.page += 1
       this.getList()
     },
-    async getList (loadMore = true) {
+    async getList () {
       const data = {
         page: this.page
       }
-      const result = await fetchList(data)
+      const result = await fetchList()
+      debugger
       this.total = result.data.total
       const newList = result.data.items.map(article => {
         article.displayTimeFormart = dayjs(article.display_time).format('YYYY-MM-DD')
