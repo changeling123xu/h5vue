@@ -22,3 +22,11 @@ export function logout () {
     method: 'post'
   })
 }
+
+export function updateInfo (data) {
+  return request({
+    url: '/user/updateInfo',
+    method: 'post',
+    data
+  })
+}

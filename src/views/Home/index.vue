@@ -141,7 +141,7 @@ export default {
       });
     },
     houseDetail(e) {
-      console.log(e, 123);
+      this.$router.push({path:'houseDetail',query:{houseId:e}});
     },
     loadingMore() {
       this.houseListNum += 6;

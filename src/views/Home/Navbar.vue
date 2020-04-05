@@ -16,7 +16,6 @@
           <img v-lazy="image" />
         </van-swipe-item>
       </van-swipe>
-      <!-- <van-search v-model="searchVal" placeholder="请输入搜索关键词" shape="round" /> -->
     </div>
     <div class="search-message">
       <van-sticky>
@@ -32,18 +31,24 @@
       </van-sticky>
     </div>
     <div class="eldrawer">
-      <el-drawer :visible.sync="drawer" ref="drawer"  :modal="true" :with-header="false" size="50%">
+      <el-drawer :visible.sync="drawer" ref="drawer" :modal="true" :with-header="false" size="50%">
         <div class="draweImage">
           <van-image round src="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
         </div>
-        <van-cell :border="true" title="登陆/注册" to="/login" @click="$refs.drawer.closeDrawer()"/>
+        <van-cell
+          :border="true"
+          v-if="flag.islogin"
+          title="登陆/注册"
+          to="/login"
+          @click="$refs.drawer.closeDrawer()"
+        />
         <van-cell :border="true" title="我的预定" to="/message" @click="$refs.drawer.closeDrawer()" />
-        <van-cell :border="true" title="我的订单" @click="$refs.drawer.closeDrawer()"/>
-        <van-cell :border="true" title="联系客服" @click="$refs.drawer.closeDrawer()"/>
-        <van-cell :border="true" title="帮助" @click="$refs.drawer.closeDrawer()"/>
+        <van-cell :border="true" title="我的信息" to='' @click="$refs.drawer.closeDrawer()" />
+        <van-cell :border="true" title="联系客服" @click="$refs.drawer.closeDrawer()" />
+        <van-cell :border="true" title="帮助" @click="$refs.drawer.closeDrawer()" />
+        <van-cell :border="true" v-if="!flag.islogin" title="退出登陆" @click="loginOut" />
       </el-drawer>
     </div>
-
   </div>
 </template>
 
@@ -60,7 +65,9 @@ import {
   Image,
   Overlay
 } from "vant";
-import { mapGetters } from "vuex";
+import { getToken } from "@/utils/auth";
+
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   data() {
@@ -71,7 +78,10 @@ export default {
         "https://img.yzcdn.cn/vant/apple-1.jpg",
         "https://img.yzcdn.cn/vant/apple-2.jpg"
       ],
-      drawer: false
+      drawer: false,
+      flag: {
+        islogin: getToken() ? false : true
+      }
     };
   },
   components: {
@@ -86,19 +96,26 @@ export default {
     SearchMessage
   },
   computed: {
-    ...mapGetters(["userData"])
+    ...mapGetters(["userData"]),
+    ...mapMutations({
+      logout: "user/LOGOUT"
+    })
   },
   methods: {
     onSearch() {},
     onCancel() {},
-    onFocus(){
-      this.$router.push('/searchPage')
+    onFocus() {
+      this.$router.push("/searchPage");
     },
     drawerRight() {
-      this.show=!this.show
+      this.show = !this.show;
       this.drawer = !this.drawer;
       console.log(this.show);
+    },
 
+    loginOut() {
+      this.logout;
+      this.$refs.drawer.closeDrawer();
     }
   }
 };

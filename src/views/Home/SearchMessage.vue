@@ -10,12 +10,12 @@
       @click="getMessageId(item.houseId)"
     >
       <template #desc>
-        <span>{{item.introduce1}}</span>
+        <p>{{item.introduce1}}</p>
         <span>{{item.introduce}}</span>
       </template>
       <template #tags>
-        <div class="housetag">
-          <van-tag plain type="primary" v-for="index in item.titleTagList" :key="index">{{index}}</van-tag>
+        <div class="housetag" style="margin:5px 0">
+          <van-tag plain  type="primary" v-for="index in item.titleTagList" :key="index">{{index}}</van-tag>
         </div>
       </template>
     </van-card>
@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       container: null,
-      searchVal: "123",
+      searchVal: "",
     };
   },
   components: {
@@ -66,13 +66,15 @@ export default {
 </script>
 <style lang="scss" scope>
 .searchMessage {
+  p{
+    margin: 5px 0;
+    padding: 0;
+  }
   .searchMessage_card {
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.01),
       0px 3px 18px rgba(0, 0, 0, 0.12);
     border-radius: 20px;
-    .housetag {
-      display: flex;
-    }
+
   }
 }
 </style>

@@ -34,6 +34,26 @@ let routes = [{
     }
   },
   {
+    path: '/houseList',
+    name: 'houseList',
+    component: () => import(/* webpackChunkName: "login" */ 'views/HouseList/index'),
+    meta: {
+      title: '搜索'
+      // auth: true,
+      // keepAlive: true
+    }
+  },
+  {
+    path: '/houseDetail',
+    name: 'houseDetail',
+    component: () => import(/* webpackChunkName: "login" */ 'views/HouseDetail/index'),
+    meta: {
+      title: '详情'
+      // auth: true,
+      // keepAlive: true
+    }
+  },
+  {
     path: '/404',
     name: '404',
     component: () => import( /* webpackChunkName: "404" */ 'views/404.vue'),

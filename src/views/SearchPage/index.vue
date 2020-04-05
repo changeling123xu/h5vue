@@ -15,16 +15,27 @@
     <div v-if="show">
       <title-bar :title="'搜索历史记录'" />
       <div class="searchBtn">
-        <van-button v-for="(item,index) in 7" :key="index" type="default" icon="clock-o">默认按钮</van-button>
+        <van-button v-for="(item,index) in 1" :key="index" type="default" icon="clock-o">成都</van-button>
       </div>
       <title-bar :title="'热门城市'" />
       <div class="searchBtn">
-        <van-button v-for="(item,index) in hotCity" :key="index" type="default">{{item.cityname}}</van-button>
+        <van-button
+          v-for="(item,index) in hotCity"
+          :key="index"
+          type="default"
+          :to="{path:`\houseList?cityid=${item.cityid}&cityname=${item.cityname}&cityidYj=${item.cityidYj}`}"
+        >{{item.cityname}}</van-button>
       </div>
     </div>
 
-    <div class="searchPopup" v-if="shows">
-      <van-cell title="路由跳转" is-link to="index" />
+    <div class="searchPopup" v-if="showMessage">
+      <van-cell
+        v-for="(item , index) in showMessageData"
+        :key="index"
+        :title="item.cityname"
+        is-link
+        :to="{path:`\houseList?cityid=${item.cityid}&cityname=${item.cityname}&cityidYj=${item.cityidYj}`}"
+      />
     </div>
   </div>
 </template>
@@ -34,12 +45,14 @@ import { getCityList } from "api/house";
 import TitleBar from "components/TitleBar";
 
 export default {
+  name:'SearchPage',
   data() {
     return {
       value: "",
       hotCity: [],
       show: true,
-      shows: false
+      showMessage: false,
+      showMessageData: []
     };
   },
   mounted() {
@@ -54,13 +67,14 @@ export default {
       this.show = false;
       // this.shows=true
     },
-    onInput(){
-      this.cityList();
-      console.log(this.value);
-
+    onInput() {
+      getCityList(this.search).then(({ data }) => {
+        this.showMessageData = data;
+        this.showMessage = data.length > 0 ? true : false;
+      });
     },
-    onBlur(){
-      this.show=true
+    onBlur() {
+      this.show = true;
     },
     async cityList() {
       let list = await getCityList(this.search);

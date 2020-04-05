@@ -63,7 +63,6 @@ export default {
       return new Promise((resolve, reject) => {
         getInfo(state.token).then(response => {
           const { data } = response
-
           if (!data) {
             // eslint-disable-next-line
             reject('Verification failed, please Login again.')

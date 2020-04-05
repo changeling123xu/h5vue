@@ -32,8 +32,8 @@ export default {
   name: 'Login',
   data () {
     return {
-      phoneNumber: '13216698987',
-      password: '123456',
+      phoneNumber: '15700486454',
+      password: 'editor123',
       code: '',
       loginWay: 'password',
       passwordType: 'password',

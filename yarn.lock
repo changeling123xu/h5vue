@@ -640,7 +640,14 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.2"
 
-"@babel/runtime@7.x", "@babel/runtime@^7.0.0":
+"@babel/runtime@7.x":
+  version "7.9.2"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.2.tgz#d90df0583a3a252f09aaa619665367bae518db06"
+  integrity sha512-NE2DtOdufG7R5vnfQUTehdTfNycfUANEtCa9PssN9O/xmTzP4E08UI797ixaei6hBEVL9BI/PsdJS5x7mWoB9Q==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
+"@babel/runtime@^7.0.0":
   version "7.6.2"
   resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.6.2.tgz?cache=0&sync_timestamp=1569273822239&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.6.2.tgz#c3d6e41b304ef10dcf13777a33e7694ec4a9a6dd"
   integrity sha1-w9bkGzBO8Q3PE3d6M+dpTsSppt0=
@@ -803,15 +810,15 @@
   resolved "https://registry.npm.taobao.org/@types/q/download/@types/q-1.5.2.tgz?cache=0&sync_timestamp=1567534086032&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fq%2Fdownload%2F%40types%2Fq-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha1-aQoUdbhPKohP0HzXl8APXzE1bqg=
 
-"@vant/icons@1.1.14":
-  version "1.1.14"
-  resolved "https://registry.npm.taobao.org/@vant/icons/download/@vant/icons-1.1.14.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vant%2Ficons%2Fdownload%2F%40vant%2Ficons-1.1.14.tgz#76dfb7be055f98875d703af59a6216539c32a8cd"
-  integrity sha1-dt+3vgVfmIddcDr1mmIWU5wyqM0=
+"@vant/icons@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@vant/icons/-/icons-1.2.1.tgz#309fecb97a4989866f045ce676b545c454701c8f"
+  integrity sha512-5ivsKQR4ySbdBW5UPoQDVqO6rdc1um3rvq/0VL+ZSA7Y3MdBQ3E4/NL0hoAY5/sZZeYfIDKEP21gpjUzdeEDQQ==
 
 "@vue/babel-helper-vue-jsx-merge-props@^1.0.0":
   version "1.0.0"
-  resolved "https://registry.npm.taobao.org/@vue/babel-helper-vue-jsx-merge-props/download/@vue/babel-helper-vue-jsx-merge-props-1.0.0.tgz#048fe579958da408fb7a8b2a3ec050b50a661040"
-  integrity sha1-BI/leZWNpAj7eosqPsBQtQpmEEA=
+  resolved "https://registry.yarnpkg.com/@vue/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-1.0.0.tgz#048fe579958da408fb7a8b2a3ec050b50a661040"
+  integrity sha512-6tyf5Cqm4m6v7buITuwS+jHzPlIPxbFzEhXR5JGZpbrvOcp1hiQKckd305/3C7C36wFekNTQSxAtgeM0j0yoUw==
 
 "@vue/babel-plugin-transform-vue-jsx@^1.0.0":
   version "1.0.0"
@@ -7202,10 +7209,10 @@ regenerator-runtime@^0.11.0:
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
   integrity sha512-MguG95oij0fC3QV3URf4V2SDYGJhJnJGqvIIgdECeODCT98wSWDAJ94SSuVpYQUoTcGUIL6L4yNB7j1DFFHSBg==
 
-regenerator-runtime@^0.13.2:
-  version "0.13.3"
-  resolved "https://registry.npm.taobao.org/regenerator-runtime/download/regenerator-runtime-0.13.3.tgz#7cf6a77d8f5c6f60eb73c5fc1955b2ceb01e6bf5"
-  integrity sha1-fPanfY9cb2Drc8X8GVWyzrAea/U=
+regenerator-runtime@^0.13.2, regenerator-runtime@^0.13.4:
+  version "0.13.5"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.5.tgz#d878a1d094b4306d10b9096484b33ebd55e26697"
+  integrity sha512-ZS5w8CpKFinUzOwW3c83oPeVXoNsrLsaCoLtJvAClH135j/R77RuymhiSErhm2lKcwSCIpmvIWSbDkIfAqKQlA==
 
 regenerator-transform@^0.14.0:
   version "0.14.1"
@@ -8700,12 +8707,12 @@ validate-npm-package-license@^3.0.1:
     spdx-expression-parse "^3.0.0"
 
 vant@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.npm.taobao.org/vant/download/vant-2.2.5.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvant%2Fdownload%2Fvant-2.2.5.tgz#f7920ba416f2efff4efa39c82d55a50f91e3578d"
-  integrity sha1-95ILpBby7/9O+jnILVWlD5HjV40=
+  version "2.5.7"
+  resolved "https://registry.yarnpkg.com/vant/-/vant-2.5.7.tgz#b8cdbd77366c6e32d149c7bbd67b9ec4ea1b908d"
+  integrity sha512-JD5SxrSI1K0cKTDx0d+UNd/we576WznGNv19ZrhEK943aP8NxyDZ9oI4ZpnR4VmMjTxdANB4JW0CqqeXHMMZ1w==
   dependencies:
     "@babel/runtime" "7.x"
-    "@vant/icons" "1.1.14"
+    "@vant/icons" "1.2.1"
     "@vue/babel-helper-vue-jsx-merge-props" "^1.0.0"
     vue-lazyload "1.2.3"
 
@@ -8787,8 +8794,8 @@ vue-hot-reload-api@^2.3.0:
 
 vue-lazyload@1.2.3:
   version "1.2.3"
-  resolved "https://registry.npm.taobao.org/vue-lazyload/download/vue-lazyload-1.2.3.tgz?cache=0&sync_timestamp=1568801961628&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-lazyload%2Fdownload%2Fvue-lazyload-1.2.3.tgz#901f9ec15c7e6ca78781a2bae4a343686bdedb2c"
-  integrity sha1-kB+ewVx+bKeHgaK65KNDaGve2yw=
+  resolved "https://registry.yarnpkg.com/vue-lazyload/-/vue-lazyload-1.2.3.tgz#901f9ec15c7e6ca78781a2bae4a343686bdedb2c"
+  integrity sha512-DC0ZwxanbRhx79tlA3zY5OYJkH8FYp3WBAnAJbrcuoS8eye1P73rcgAZhyxFSPUluJUTelMB+i/+VkNU/qVm7g==
 
 vue-loader@^15.7.0:
   version "15.7.1"
