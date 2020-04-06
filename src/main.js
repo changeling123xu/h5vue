@@ -34,11 +34,11 @@ Vue.use(Lazyload)
 Vue.use(ElementUI);
 Vue.component('svg-icon', SvgIcon)
 
-if (process.env.NODE_ENV === 'development' && defaultSettings.vconsole) {
-  const VConsole = require('vconsole')
-  // eslint-disable-next-line
-  const my_console = new VConsole()
-}
+// if (process.env.NODE_ENV === 'development' && defaultSettings.vconsole) {
+//   const VConsole = require('vconsole')
+//   // eslint-disable-next-line
+//   const my_console = new VConsole()
+// }
 // var vConsole = new VConsole(option)
 
 Vue.config.productionTip = false

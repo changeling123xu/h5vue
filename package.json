@@ -45,7 +45,6 @@
     "svg-sprite-loader": "^4.1.6",
     "svgo": "^1.3.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "vconsole": "^3.3.4",
     "vue-template-compiler": "^2.6.10",
     "webpack-bundle-analyzer": "^3.5.2"
   }
