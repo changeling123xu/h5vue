@@ -2,7 +2,7 @@
   <div class="header">
     <div class="search">
       <div class="search_home">
-        <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" size="30px" />
+        <van-icon name="https://xusu.oss-cn-chengdu.aliyuncs.com/mingsu/homeIcon/home.png" size="30px" color="red" />
         <van-icon
           name="https://b.yzcdn.cn/vant/icon-demo-1126.png"
           size="30px"
@@ -33,7 +33,7 @@
     <div class="eldrawer">
       <el-drawer :visible.sync="drawer" ref="drawer" :modal="true" :with-header="false" size="50%">
         <div class="draweImage">
-          <van-image round src="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
+          <van-image round :src="defaultUserImage" />
         </div>
         <van-cell
           :border="true"
@@ -42,8 +42,8 @@
           to="/login"
           @click="$refs.drawer.closeDrawer()"
         />
-        <van-cell :border="true" title="我的预定" to="/message" @click="$refs.drawer.closeDrawer()" />
-        <van-cell :border="true" title="我的信息" to='' @click="$refs.drawer.closeDrawer()" />
+        <van-cell :border="true" title="我的预定" to="" @click="$refs.drawer.closeDrawer()" />
+        <van-cell :border="true" title="我的信息" to='/message' @click="$refs.drawer.closeDrawer()" />
         <van-cell :border="true" title="联系客服" @click="$refs.drawer.closeDrawer()" />
         <van-cell :border="true" title="帮助" @click="$refs.drawer.closeDrawer()" />
         <van-cell :border="true" v-if="!flag.islogin" title="退出登陆" @click="loginOut" />
@@ -81,7 +81,8 @@ export default {
       drawer: false,
       flag: {
         islogin: getToken() ? false : true
-      }
+      },
+      defaultUserImage:"https://b.yzcdn.cn/vant/icon-demo-1126.png"
     };
   },
   components: {
@@ -110,7 +111,9 @@ export default {
     drawerRight() {
       this.show = !this.show;
       this.drawer = !this.drawer;
-      console.log(this.show);
+      if(this.userData){
+        this.defaultUserImage=this.userData.avatar
+      }
     },
 
     loginOut() {

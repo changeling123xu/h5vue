@@ -6,62 +6,62 @@ import store from '@/store'
 Vue.use(Router)
 
 let routes = [{
-    path: '/',
-    name: 'home',
-    component: Home,
-    meta: {
-      title: '首页',
-      keepAlive: true
-    }
-  },
-  {
-    path: '/message',
-    name: 'message',
-    component: () => import('views/Message/index'),
-    meta: {
-      title: '个人中心',
-      keepAlive: true
-    }
-  },
-  {
-    path: '/searchPage',
-    name: 'searchPage',
-    component: () => import(/* webpackChunkName: "login" */ 'views/SearchPage/index'),
-    meta: {
-      title: '搜索'
-      // auth: true,
-      // keepAlive: true
-    }
-  },
-  {
-    path: '/houseList',
-    name: 'houseList',
-    component: () => import(/* webpackChunkName: "login" */ 'views/HouseList/index'),
-    meta: {
-      title: '搜索'
-      // auth: true,
-      // keepAlive: true
-    }
-  },
-  {
-    path: '/houseDetail',
-    name: 'houseDetail',
-    component: () => import(/* webpackChunkName: "login" */ 'views/HouseDetail/index'),
-    meta: {
-      title: '详情'
-      // auth: true,
-      // keepAlive: true
-    }
-  },
-  {
-    path: '/404',
-    name: '404',
-    component: () => import( /* webpackChunkName: "404" */ 'views/404.vue'),
-    meta: {
-      title: '404',
-      keepAlive: true
-    }
+  path: '/',
+  name: 'home',
+  component: Home,
+  meta: {
+    title: '首页',
+    keepAlive: true
   }
+},
+{
+  path: '/message',
+  name: 'message',
+  component: () => import('views/Message/index'),
+  meta: {
+    title: '个人中心',
+    keepAlive: true
+  }
+},
+{
+  path: '/searchPage',
+  name: 'searchPage',
+  component: () => import(/* webpackChunkName: "login" */ 'views/SearchPage/index'),
+  meta: {
+    title: '搜索'
+    // auth: true,
+    // keepAlive: true
+  }
+},
+{
+  path: '/houseList',
+  name: 'houseList',
+  component: () => import(/* webpackChunkName: "login" */ 'views/HouseList/index'),
+  meta: {
+    title: '搜索'
+    // auth: true,
+    // keepAlive: true
+  }
+},
+{
+  path: '/houseDetail',
+  name: 'houseDetail',
+  component: () => import(/* webpackChunkName: "login" */ 'views/HouseDetail/index'),
+  meta: {
+    title: '详情'
+    // auth: true,
+    // keepAlive: true
+  }
+},
+{
+  path: '/404',
+  name: '404',
+  component: () => import(/* webpackChunkName: "404" */ 'views/404.vue'),
+  meta: {
+    title: '404',
+    keepAlive: true
+  }
+}
 ]
 
 const routerContext = require.context('./', true, /\.js$/)
@@ -127,7 +127,7 @@ myRouter.beforeEach((to, from, next) => {
   next()
 })
 
-export function resetRouter() {
+export function resetRouter () {
   myRouter.replace('/login')
 }
 

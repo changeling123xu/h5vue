@@ -2,34 +2,25 @@
   <div class="introduction">
     <van-tabs v-model="activeName">
       <van-tab title="房东介绍" name="a">
-        <!-- <van-card desc="描述信息" title="商品标题" thumb="https://img.yzcdn.cn/vant/ipad.jpeg">
-          <template #tags>
-            <van-tag plain type="danger">实名认证</van-tag>
-            <van-tag plain type="danger">个人房东</van-tag>
-          </template>
-          <template #footer>
-            <span>asdfasdfasdfasdfasdfasdfa</span>
-          </template>
-        </van-card>-->
         <div class="card">
           <div class="introduction-header">
             <div class="owner-icon">
               <van-image round width="60px" height="60px" src="https://img.yzcdn.cn/vant/cat.jpeg" />
             </div>
             <div class="owner-info">
-              <p>{{info.name}}</p>
+              <p>{{houser.info.name}}</p>
               <div class="owner-tags">
-                <van-tag type="danger" v-for="(i,index) in info.tag" :key="index">{{i}}</van-tag>
+                <van-tag type="danger" v-for="(i,index) in houser.info.tag" :key="index">{{i}}</van-tag>
               </div>
             </div>
           </div>
           <div class="introduction-comment">
-            <div v-for="(item,index) in comment" :key="index">
+            <div v-for="(item,index) in houser.comment" :key="index">
               <span>{{item.lable}}</span>
               <span>{{item.value}}</span>
             </div>
           </div>
-          <div class="introduction-desc">{{desc}}</div>
+          <div class="introduction-desc">{{houser.desc}}</div>
         </div>
       </van-tab>
       <van-tab title="房源评价" name="b">
@@ -37,12 +28,12 @@
           <div class="evaluation van-hairline--bottom" v-for="(item,index) in message" :key="index">
             <div class="evaluation-top">
               <div>
-                <van-image round width="60px" height="60px" :src="item.url" />
+                <van-image round width="60px" height="60px" :src="'https://xusu.oss-cn-chengdu.aliyuncs.com/mingsu/userImage/ia_10001.jpeg'" />
               </div>
               <div class="owner-info">
                 <div>
                   <p>{{item.name}}</p>
-                  {{item.date}}
+                  {{item.sendData}}
                 </div>
                 <div class="rates">
                   <van-rate v-model="value" readonly size="10px" />
@@ -65,26 +56,23 @@ export default {
   data() {
     return {
       activeName: "a",
-      value: 4
+      value: 4,
+      url:''
     };
   },
   props: {
-    comment: {
-      type: Array,
-      default: () => [
-        { lable: "好评率: ", value: "100%" },
-        { lable: "回复率: ", value: "100%" },
-        { lable: "回复速度: ", value: "很快" }
-      ]
-    },
-    desc: {
-      type: String,
-      default: "本店开业10年有余，喜迎八方有志青年。"
-    },
-    info: {
-      type: Object,
+    houser: {
+      type: [Object, Function],
       default: () => {
-        return { name: "有志青年", tag: ["实名认证", "个人房东"] };
+        return {
+          comment: [
+            { lable: "好评率: ", value: "100%" },
+            { lable: "回复率: ", value: "100%" },
+            { lable: "回复速度: ", value: "很快" }
+          ],
+          desc: "本店开业10年有余，喜迎八方有志青年。",
+          info: { name: "有志青年", tag: ["实名认证", "个人房东"] }
+        };
       }
     },
     message: {

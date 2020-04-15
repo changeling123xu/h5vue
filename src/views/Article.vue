@@ -11,27 +11,6 @@ export default {
   methods: {
     sendMessage() {
       var ws = new WebSocket("ws://localhost:8089/");
-
-      // switch (ws.readyState) {
-      //   case WebSocket.CONNECTING:
-      //     ws.send("Start connecting");
-      //     // do something
-      //     break;
-      //   case WebSocket.OPEN:
-      //     // do something
-      //     ws.send("Hello Server!");
-      //     break;
-      //   case WebSocket.CLOSING:
-      //     ws.send("is closeing");
-      //     // do something
-      //     break;
-      //   case WebSocket.CLOSED:
-      //     // do something
-      //     break;
-      //   default:
-      //     // this never happens
-      //     break;
-      // }
       ws.onopen = function (){
         ws.send('123')
 

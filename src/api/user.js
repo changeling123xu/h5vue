@@ -30,3 +30,11 @@ export function updateInfo (data) {
     data
   })
 }
+
+export function userUploadImage (data) {
+  return request({
+    url: '/uploadImage/upload',
+    method: 'post',
+    data
+  })
+}

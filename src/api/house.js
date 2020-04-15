@@ -38,3 +38,11 @@ export function getHouseDetail (params) {
     params
   })
 }
+
+export function getHouseComment (params) {
+  return request({
+    url: '/houseAbout/houserComment',
+    method: 'get',
+    params
+  })
+}

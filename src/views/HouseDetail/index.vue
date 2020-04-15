@@ -1,5 +1,6 @@
 <template>
   <div class="custom">
+    <van-nav-bar class="customBack" title="详情" left-text="返回" left-arrow @click-left="onBack" />
     <van-swipe class="custom-swipe" @change="onChange" :autoplay="3000">
       <van-swipe-item v-for="(item, index) in houseMessage.houseImage" :key="index">
         <img v-lazy="item" />
@@ -75,16 +76,22 @@
         </div>
       </div>
     </div>
-    <houser />
+    <houser :houser="houserData" :message="comment" />
     <booking-notice />
     <book />
     <div class="footer">
       <van-goods-action>
         <van-goods-action-icon icon="chat-o" text="房东" />
         <van-goods-action-icon icon="shop-o" text="电话" />
-        <van-goods-action-button color="#ff5000" type="warning" text="立即预定" />
+        <van-goods-action-button
+          :color="bookBtnColor"
+          type="warning"
+          @click="showCards"
+          text="立即预定"
+        />
       </van-goods-action>
     </div>
+    <!-- <sku :show="showCard" :houseMessage="{price:100,name:'zhangsan'}" /> -->
   </div>
 </template>
 <script>
@@ -105,13 +112,15 @@ import {
   GoodsActionIcon,
   GoodsActionButton,
   Steps,
-  Step
+  Step,
+  NavBar
 } from "vant";
-import { getHouseDetail } from "api/house";
+import { getHouseDetail, getHouseComment } from "api/house";
 import TitleBar from "components/TitleBar";
-import Book from "./Book"
-import BookingNotice from "./BookingNotice"
-import Houser from "./Houser"
+import Book from "./component/Book";
+import BookingNotice from "./component/BookingNotice";
+import Houser from "./component/Houser";
+// import Sku from "./component/Sku";
 
 export default {
   data() {
@@ -120,30 +129,32 @@ export default {
       condition: "无使用门槛\n最多优惠100元",
       reason: "",
       value: 150,
-      name: "九折优惠",
+      valueNum:0.8,
+      name: "八折优惠",
       startAt: 1689104000,
       endAt: 1714592000,
-      valueDesc: "1.5",
+      valueDesc: "15",
       unitDesc: "元"
     };
+   
     return {
       current: 0,
-      houseId: this.$route.query.houseId ||"h0001",
+      houseId: this.$route.query.houseId || "h0001",
       show: false,
       date: "",
       day: "",
       houseMessage: {
         houseDetail: {},
-        houseImage:[]
+        houseImage: []
       },
-      images: [
-        "https://img.yzcdn.cn/vant/apple-1.jpg",
-        "https://img.yzcdn.cn/vant/apple-2.jpg"
-      ],
+
       chosenCoupon: -1,
       coupons: [coupon],
       disabledCoupons: [coupon],
-      showList: false
+      showList: false,
+      // showCard: false,
+      comment: [], //评论内容
+      bookBtnColor: "#999999"
     };
   },
   mounted() {
@@ -154,11 +165,28 @@ export default {
       return {
         houseId: this.houseId
       };
+    },
+
+    houserData() {
+      let mes = {
+        comment: [
+          { lable: "好评率: ", value: "90%" },
+          { lable: "回复率: ", value: "10%" },
+          { lable: "回复速度: ", value: "很快" }
+        ],
+        desc: "本店开业10年有余，喜迎八方有志青sd年。",
+        info: { name: "有志s青年", tag: ["实名认证", "个人房东"] }
+      };
+      return mes;
     }
   },
   methods: {
+    onBack() {
+      this.$router.go(-1);
+    },
     async getHouseDetail() {
       let { data } = await getHouseDetail(this.config);
+      await this.getHouseComment();
       this.houseMessage.houseDetail = data.houseDetail[0];
       this.houseMessage.houseDetail.titleTagList = data.houseDetail[0].titleTagList.split(
         ","
@@ -166,9 +194,17 @@ export default {
       this.houseMessage.houseDetail.introduce = data.houseDetail[0].introduce.split(
         "·"
       );
-      this.houseMessage.houseImage=data.houseImage.map(item=>{
-        return 'https://xusu.oss-cn-chengdu.aliyuncs.com/mingsu/shoutRent/'+item.houser_image+'.jpg'
-      })
+      this.houseMessage.houseImage = data.houseImage.map(item => {
+        return (
+          "https://xusu.oss-cn-chengdu.aliyuncs.com/mingsu/shoutRent/" +
+          item.houser_image +
+          ".jpg"
+        );
+      });
+    },
+    async getHouseComment() {
+      let { data } = await getHouseComment({ houseId: "h0001" });
+      this.comment = data;
     },
     onChange(index) {
       this.current = index;
@@ -181,17 +217,36 @@ export default {
       this.show = false;
       this.date = `${this.formatDate(start)} - ${this.formatDate(end)}`;
       this.day = (end.valueOf() - start.valueOf()) / 1000 / 60 / 60 / 24;
-      debugger;
+      if (this.day) {
+        this.bookBtnColor = "#ff5000";
+      }
     },
     onChanges(index) {
       this.showList = false;
       this.chosenCoupon = index;
+      if (this.day) {
+        let a = this.houseMessage.houseDetail.price * this.day;
+         this.coupons[index].value=a*100*(1-this.coupons[index].valueNum)
+         this.houseMessage.houseDetail.couponValue=this.coupons[index].value
+        
+      }
+
     },
     onExchange(code) {
       this.coupons.push(coupon);
+      console.log(code);
+      
+    },
+    showCards() {
+      let booking={
+        houseDetail:this.houseMessage.houseDetail,
+        rentDate:this.date
+      }
+      console.log(booking);
     }
   },
   components: {
+    [NavBar.name]: NavBar,
     [Swipe.name]: Swipe,
     [SwipeItem.name]: SwipeItem,
     [Tag.name]: Tag,
@@ -207,7 +262,7 @@ export default {
     [GoodsAction.name]: GoodsAction,
     [GoodsActionIcon.name]: GoodsActionIcon,
     [GoodsActionButton.name]: GoodsActionButton,
-    [Steps.name]:Steps ,
+    [Steps.name]: Steps,
     [Step.name]: Step,
 
     TitleBar,
@@ -222,6 +277,11 @@ export default {
   p {
     margin: 0;
     padding: 0;
+  }
+  .customBack {
+    position: absolute;
+    width: 100%;
+    z-index: 100;
   }
   .custom-swipe {
     width: 100%;

@@ -1,9 +1,6 @@
 <template>
   <div class="message">
     <van-nav-bar title="个人信息" left-arrow @click-left="onClickLeft">
-      <!-- <template #right>
-        <van-icon name="search" size="18" />
-      </template>-->
     </van-nav-bar>
     <div class="message-image">
       <div class="image-desc">
@@ -55,47 +52,46 @@
 <script>
 import { Image, Field, Button, NavBar, Uploader } from "vant";
 import FooterTabbar from "components/FooterTabbar";
-import { mapGetters ,mapActions} from "vuex";
-import { updateInfo } from "api/user";
+import { mapGetters, mapActions } from "vuex";
+import { updateInfo, userUploadImage } from "api/user";
 export default {
   data() {
     return {
       show: true,
       activeNames: 1,
-      imageURL:
-        "https://xusu.oss-cn-chengdu.aliyuncs.com/mingsu/shoutRent/ia_10001.jpg",
       user: {}
     };
   },
   computed: {
     ...mapGetters(["userData"]),
     ...mapActions({
-      getInfo: 'user/getInfo'
+      getInfo: "user/getInfo"
     })
   },
   methods: {
-    // userMessage() {
-    //   this.user = this.userData;
-    //   console.log(this.user);
-    // },
+
     onClickLeft() {
-      this.$router.push({ path: "/" });
+      // this.$router.push({ path: "/" });
+      this.$router.go(-1)
     },
     handleChange(val) {
       this.user.phone = this.userData.phone;
       this.user.introduction = this.userData.introduction;
       console.log(this.user);
     },
-    afterRead(file) {
-      // 此时可以自行将文件上传至服务器
-      this.user.avatar = file.content;
-      this.userData.avatar = file.content;
+    afterRead(option) {
+      let files = option.content;
+      let formData = new FormData();
+      formData.append("avantFile", option.file);
+      this.user.avatar = option.content;
+      userUploadImage(formData).then(data => {
+        this.userData.avatar = data.imageUrl;
+      });
     },
     subMit() {
       console.log(this.userData);
       updateInfo(this.userData).then(data => {
-        this.getInfo
-
+        this.getInfo;
       });
     }
   },
