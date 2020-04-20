@@ -1,5 +1,6 @@
 <template>
   <div class="header">
+    <van-loading color="#1989fa" />
     <div class="search">
       <div class="search_home">
         <van-icon name="https://xusu.oss-cn-chengdu.aliyuncs.com/mingsu/homeIcon/home.png" size="30px" color="red" />
@@ -119,6 +120,7 @@ export default {
     loginOut() {
       this.logout;
       this.$refs.drawer.closeDrawer();
+      this.$router.push('/')
     }
   }
 };

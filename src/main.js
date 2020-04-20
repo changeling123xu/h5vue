@@ -9,9 +9,10 @@ import SvgIcon from 'components/SvgIcon'
 import '@/icons' // icon
 import '@/style/common.scss'
 import { Lazyload } from 'vant'
-import defaultSettings from '@/settings'
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+// import defaultSettings from '@/settings'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import VueSocketIO from 'vue-socket.io'
 // import Argon from '@/plugins/argon-kit'
 /**
  * If you don't want to use mock-server
@@ -30,8 +31,19 @@ if (process.env.NODE_ENV === 'production') {
 FastClick.attach(document.body)
 
 // options 为可选参数，无则不传
+Vue.use(new VueSocketIO({
+  debug: true,
+  connection: 'http://127.0.0.1:8082'
+  // vuex: {
+  //   store,
+  //   actionPrefix: 'SOCKET_', // 为vuex设置的两个前缀
+  //   mutationPrefix: 'SOCKET_'
+  // },
+  // options: { path: "/my-app/" } // Optional options
+}))
+
 Vue.use(Lazyload)
-Vue.use(ElementUI);
+Vue.use(ElementUI)
 Vue.component('svg-icon', SvgIcon)
 
 // if (process.env.NODE_ENV === 'development' && defaultSettings.vconsole) {

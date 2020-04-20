@@ -9,12 +9,12 @@ export function param2Obj (url) {
   }
   return JSON.parse(
     '{"' +
-      decodeURIComponent(search)
-        .replace(/"/g, '\\"')
-        .replace(/&/g, '","')
-        .replace(/=/g, '":"')
-        .replace(/\+/g, ' ') +
-      '"}'
+    decodeURIComponent(search)
+      .replace(/"/g, '\\"')
+      .replace(/&/g, '","')
+      .replace(/=/g, '":"')
+      .replace(/\+/g, ' ') +
+    '"}'
   )
 }
 
@@ -31,4 +31,9 @@ export function deepClone (source) {
     }
   })
   return targetObj
+}
+
+export function translateTime (time = +new Date()) {
+  var date = new Date(time + 8 * 3600 * 1000)
+  return date.toJSON().substr(0, 19).replace('T', ' ').replace(/-/g, '.')
 }

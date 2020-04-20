@@ -81,7 +81,7 @@
     <book />
     <div class="footer">
       <van-goods-action>
-        <van-goods-action-icon icon="chat-o" text="房东" />
+        <van-goods-action-icon icon="chat-o" text="房东" @click="startTaking" />
         <van-goods-action-icon icon="shop-o" text="电话" />
         <van-goods-action-button
           :color="bookBtnColor"
@@ -115,7 +115,7 @@ import {
   Step,
   NavBar
 } from "vant";
-import { getHouseDetail, getHouseComment } from "api/house";
+import { getHouseDetail, getHouseComment, addHouseOrder } from "api/house";
 import TitleBar from "components/TitleBar";
 import Book from "./component/Book";
 import BookingNotice from "./component/BookingNotice";
@@ -129,14 +129,14 @@ export default {
       condition: "无使用门槛\n最多优惠100元",
       reason: "",
       value: 150,
-      valueNum:0.8,
+      valueNum: 0.8,
       name: "八折优惠",
       startAt: 1689104000,
       endAt: 1714592000,
       valueDesc: "15",
       unitDesc: "元"
     };
-   
+
     return {
       current: 0,
       houseId: this.$route.query.houseId || "h0001",
@@ -154,7 +154,8 @@ export default {
       showList: false,
       // showCard: false,
       comment: [], //评论内容
-      bookBtnColor: "#999999"
+      bookBtnColor: "#999999",
+      houseOrder: {}
     };
   },
   mounted() {
@@ -214,6 +215,8 @@ export default {
     },
     onConfirmDate(date) {
       const [start, end] = date;
+      this.houseOrder.rentStar = start.valueOf();
+      this.houseOrder.rentend = end.valueOf();
       this.show = false;
       this.date = `${this.formatDate(start)} - ${this.formatDate(end)}`;
       this.day = (end.valueOf() - start.valueOf()) / 1000 / 60 / 60 / 24;
@@ -226,23 +229,25 @@ export default {
       this.chosenCoupon = index;
       if (this.day) {
         let a = this.houseMessage.houseDetail.price * this.day;
-         this.coupons[index].value=a*100*(1-this.coupons[index].valueNum)
-         this.houseMessage.houseDetail.couponValue=this.coupons[index].value
-        
+        this.coupons[index].value =
+          a * 100 * (1 - this.coupons[index].valueNum);
+        // this.houseMessage.houseDetail.couponValue = this.coupons[index].value;
+        this.houseOrder.houseId = this.houseMessage.houseDetail.houseId;
+        this.houseOrder.couponValue = parseInt(this.coupons[index].value);
       }
-
     },
     onExchange(code) {
       this.coupons.push(coupon);
       console.log(code);
-      
     },
     showCards() {
-      let booking={
-        houseDetail:this.houseMessage.houseDetail,
-        rentDate:this.date
-      }
-      console.log(booking);
+      addHouseOrder(this.houseOrder).then(({data})=>{
+        console.log(data);
+        this.$router.push({name:'Order',params:{id:data.insertId}})
+      });
+    },
+    startTaking(){
+      this.$router.push('/article')
     }
   },
   components: {

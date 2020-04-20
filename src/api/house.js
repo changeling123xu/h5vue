@@ -46,3 +46,19 @@ export function getHouseComment (params) {
     params
   })
 }
+
+export function addHouseOrder (data) {
+  return request({
+    url: '/houseOrder/addHouseOrder',
+    method: 'post',
+    data
+  })
+}
+
+export function getHouseOrder (params) {
+  return request({
+    url: '/houseOrder/getHouseOrder',
+    method: 'get',
+    params
+  })
+}
