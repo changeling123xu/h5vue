@@ -62,3 +62,11 @@ export function getHouseOrder (params) {
     params
   })
 }
+
+export function updateHouseOrder (data) {
+  return request({
+    url: '/houseOrder/updateHouseOrder',
+    method: 'post',
+    data
+  })
+}

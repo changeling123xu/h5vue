@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import { NumberKeyboard, PasswordInput } from "vant";
+import { NumberKeyboard, PasswordInput ,Toast} from "vant";
 export default {
   data() {
     return {
@@ -25,7 +25,15 @@ export default {
     onInput(key) {
       this.value = (this.value + key).slice(0, 6);
       if (this.value.length == 6) {
-          this.showKeyboard=false
+        Toast.loading({
+          message: "加载中...",
+          forbidClick: true,
+          loadingType: "spinner"
+        });
+        setTimeout(function(){
+        Toast.success('支付成功');
+        },1000)
+        this.$emit("onsubmit", true);
       }
     },
     onDelete() {
@@ -34,7 +42,8 @@ export default {
   },
   components: {
     [NumberKeyboard.name]: NumberKeyboard,
-    [PasswordInput.name]: PasswordInput
+    [PasswordInput.name]: PasswordInput,
+    [Toast.name]:Toast
   }
 };
 </script>

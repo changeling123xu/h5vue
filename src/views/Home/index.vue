@@ -47,10 +47,6 @@ export default {
       flag: false,
       value: 1,
       value1: "",
-      images: [
-        "https://img.yzcdn.cn/vant/apple-1.jpg",
-        "https://img.yzcdn.cn/vant/apple-2.jpg"
-      ],
       houseList: [],
       houseListNum: 3,
       url: "https://xusu.oss-cn-chengdu.aliyuncs.com/mingsu/shoutRent/",
@@ -125,13 +121,17 @@ export default {
     },
     houseListDef({ data }) {
       let dataitem = data.map((item, index) => {
+        let titleTagList=[]
+        if(item.titleTagList){
+          titleTagList=item.titleTagList.split(",")
+        }
         let items = {
           introduce: item.introduce,
           introduce1: item.introduce2,
           title: item.title,
           price: item.price,
           houseId: item.houseId,
-          titleTagList: item.titleTagList.split(","),
+          titleTagList: titleTagList,
           thumb: this.url + item.houseUrl
         };
         return items;
@@ -139,6 +139,8 @@ export default {
       this.houseList = dataitem.filter((item, index) => {
         return index < this.houseListNum;
       });
+      console.log(this.houseList,'12');
+      
     },
     houseDetail(e) {
       this.$router.push({path:'houseDetail',query:{houseId:e}});

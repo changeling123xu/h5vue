@@ -31,6 +31,7 @@ export default {
   },
   methods: {
     btnClick () {
+      this.$emit('sendVerifyCode')
       this.codeRestTime = this.restTime
       let timer = setInterval(() => {
         --this.codeRestTime
@@ -39,7 +40,6 @@ export default {
           timer = null
         }
       }, 1000)
-      this.$emit('sendVerifyCode')
     }
   }
 }

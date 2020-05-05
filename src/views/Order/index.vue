@@ -26,7 +26,7 @@
       <van-action-sheet v-model="show" :actions="actions" @select="onSelect" />
       <van-action-sheet v-model="payList" :title="payMethod.name">
         <div class="content">
-          <pay :showKeyboard="payList"  />
+          <pay :showKeyboard="payList" @onsubmit="onSubmit" v-show="payList" />
         </div>
       </van-action-sheet>
     </div>
@@ -41,7 +41,7 @@
 </template>
 <script>
 import { SubmitBar, NavBar, Card, Cell, ActionSheet } from "vant";
-import { getHouseOrder } from "api/house";
+import { getHouseOrder ,updateHouseOrder} from "api/house";
 import { translateTime } from "utils/index";
 import pay from "./pay";
 export default {
@@ -74,8 +74,11 @@ export default {
     onBack() {
       this.$router.go(-1);
     },
-    onSubmit() {
+    onSubmit(flag) {
       this.payList = true;
+      if(flag){
+        this.payList=!flag
+      }
     },
     async getHouseOrder() {
       let config = 2;

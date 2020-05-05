@@ -120,6 +120,7 @@ import TitleBar from "components/TitleBar";
 import Book from "./component/Book";
 import BookingNotice from "./component/BookingNotice";
 import Houser from "./component/Houser";
+import {mapGetters} from 'vuex';
 // import Sku from "./component/Sku";
 
 export default {
@@ -155,13 +156,22 @@ export default {
       // showCard: false,
       comment: [], //评论内容
       bookBtnColor: "#999999",
-      houseOrder: {}
+      houseOrder: {
+        houseId:'',
+        rentStar:null,
+        rentend:null,
+        totalValue:0,
+        couponValue:0,
+        status:'pending'
+
+      }
     };
   },
   mounted() {
     this.getHouseDetail();
   },
   computed: {
+    ...mapGetters(["userData"]),
     config() {
       return {
         houseId: this.houseId
@@ -234,6 +244,7 @@ export default {
         // this.houseMessage.houseDetail.couponValue = this.coupons[index].value;
         this.houseOrder.houseId = this.houseMessage.houseDetail.houseId;
         this.houseOrder.couponValue = parseInt(this.coupons[index].value);
+        this.houseOrder.totalValue=a
       }
     },
     onExchange(code) {
@@ -242,7 +253,8 @@ export default {
     },
     showCards() {
       addHouseOrder(this.houseOrder).then(({data})=>{
-        console.log(data);
+        console.log(this.userData);
+        debugger
         this.$router.push({name:'Order',params:{id:data.insertId}})
       });
     },
@@ -277,7 +289,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .custom {
   p {
     margin: 0;

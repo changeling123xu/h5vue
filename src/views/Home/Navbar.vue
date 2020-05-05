@@ -1,14 +1,16 @@
 <template>
   <div class="header">
-    <van-loading color="#1989fa" />
+    <!-- <van-loading color="#1989fa" /> -->
     <div class="search">
       <div class="search_home">
-        <van-icon name="https://xusu.oss-cn-chengdu.aliyuncs.com/mingsu/homeIcon/home.png" size="30px" color="red" />
         <van-icon
-          name="https://b.yzcdn.cn/vant/icon-demo-1126.png"
+          name="https://xusu.oss-cn-chengdu.aliyuncs.com/mingsu/homeIcon/home.png"
           size="30px"
-          @click="drawerRight"
+          color="red"
         />
+        <div class="home_icon">
+          <van-icon :name="defaultUserImage" round size="30px" @click="drawerRight" />
+        </div>
       </div>
     </div>
     <div class="banner">
@@ -43,8 +45,8 @@
           to="/login"
           @click="$refs.drawer.closeDrawer()"
         />
-        <van-cell :border="true" title="我的预定" to="" @click="$refs.drawer.closeDrawer()" />
-        <van-cell :border="true" title="我的信息" to='/message' @click="$refs.drawer.closeDrawer()" />
+        <van-cell :border="true" title="我的预定" to @click="$refs.drawer.closeDrawer()" />
+        <van-cell :border="true" title="我的信息" to="/message" @click="$refs.drawer.closeDrawer()" />
         <van-cell :border="true" title="联系客服" @click="$refs.drawer.closeDrawer()" />
         <van-cell :border="true" title="帮助" @click="$refs.drawer.closeDrawer()" />
         <van-cell :border="true" v-if="!flag.islogin" title="退出登陆" @click="loginOut" />
@@ -73,17 +75,19 @@ import { mapGetters, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      searchVal: "123",
+      searchVal: "",
       show: false,
       images: [
-        "https://img.yzcdn.cn/vant/apple-1.jpg",
-        "https://img.yzcdn.cn/vant/apple-2.jpg"
+        "https://xusu.oss-cn-chengdu.aliyuncs.com/mingsu/shoutRent/ia_10003.jpg",
+        "https://xusu.oss-cn-chengdu.aliyuncs.com/mingsu/shoutRent/ia_10004.jpg",
+        "https://xusu.oss-cn-chengdu.aliyuncs.com/mingsu/shoutRent/ia_10005.jpg",
+        "https://xusu.oss-cn-chengdu.aliyuncs.com/mingsu/shoutRent/ia_10006.jpg"
       ],
       drawer: false,
       flag: {
         islogin: getToken() ? false : true
       },
-      defaultUserImage:"https://b.yzcdn.cn/vant/icon-demo-1126.png"
+      defaultUserImage: "https://b.yzcdn.cn/vant/icon-demo-1126.png"
     };
   },
   components: {
@@ -101,7 +105,13 @@ export default {
     ...mapGetters(["userData"]),
     ...mapMutations({
       logout: "user/LOGOUT"
-    })
+    }),
+    
+  },
+  mounted(){
+    if (this.userData) {
+        this.defaultUserImage = this.userData.avatar;
+      }
   },
   methods: {
     onSearch() {},
@@ -112,20 +122,21 @@ export default {
     drawerRight() {
       this.show = !this.show;
       this.drawer = !this.drawer;
-      if(this.userData){
-        this.defaultUserImage=this.userData.avatar
+      if (this.userData) {
+        this.defaultUserImage = this.userData.avatar;
       }
     },
 
     loginOut() {
       this.logout;
       this.$refs.drawer.closeDrawer();
-      this.$router.push('/')
+      this.$router.push("/");
+      this.defaultUserImage = "https://b.yzcdn.cn/vant/icon-demo-1126.png";
     }
   }
 };
 </script>
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .header {
   // height: 260px;
   // width: 320px;
@@ -153,6 +164,10 @@ export default {
     margin-left: 10%;
     padding-top: 10%;
     justify-content: space-between;
+    .home_icon {
+        border-radius: 50%;
+        overflow: hidden;
+      }
   }
 }
 .search-message {
@@ -172,6 +187,7 @@ export default {
     .van-search {
       // padding: 0;
       // height: 35px;
+      
     }
   }
 }

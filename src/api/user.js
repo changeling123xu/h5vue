@@ -7,6 +7,13 @@ export function login (data) {
     data
   })
 }
+export function addUser (data) {
+  return request({
+    url: '/user/addUser',
+    method: 'post',
+    data
+  })
+}
 
 export function getInfo (token) {
   return request({
