@@ -107,7 +107,7 @@ export default {
         $router: this.$router,
         $route: this.$route
       };
-      debugger
+      
       if(this.password && this.phoneNumber){
         this.login(data);
       }

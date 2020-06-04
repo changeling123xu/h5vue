@@ -192,7 +192,7 @@ export default {
         this.houseData=this.houseData.sort((a,b)=>{
           return (a.price-b.price)
         })
-        debugger
+        // debugger
       }else if(item===2){
         this.houseData=this.houseData.sort((a,b)=>{
           return (b.price-a.price)

@@ -254,7 +254,7 @@ export default {
     showCards() {
       addHouseOrder(this.houseOrder).then(({data})=>{
         console.log(this.userData);
-        debugger
+        // debugger
         this.$router.push({name:'Order',params:{id:data.insertId}})
       });
     },
